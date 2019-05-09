@@ -1,0 +1,172 @@
+{
+    "mappings":{"changehistorydoc":{"properties":{  
+   "AdditionalInfo":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "ChangeAction":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "ChangeApplicationId":{  
+      "type":"long"
+   },
+   "ChangeBy":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "ChangeById":{  
+      "type":"long"
+   },
+   "ChangeDateTime":{  
+      "type":"date",
+      "format":"strict_date_optional_time||epoch_millis"
+   },
+   "FieldName":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "Guid":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "NewValue":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "ObjectId":{  
+      "type":"long"
+   },
+   "ObjectType":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "OldValue":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "ParentObjectId":{  
+      "type":"long"
+   },
+   "ParentObjectType":{  
+      "type":"string",
+      "fields":{  
+         "sort":{  
+            "type":"string",
+            "analyzer":"gtz_sort_analyzer"
+         }
+      },
+      "analyzer":"gtz_index_analyzer"
+   },
+   "PrimaryObjectId":{  
+      "type":"long"
+   }
+}
+}},
+    "settings": {
+  "index": {
+            "analysis": {
+               "filter": {
+                  "gtz_filter_ngram": {
+                     "type": "nGram",
+                     "min_gram": "1",
+                     "max_gram": "20"
+                  }
+               },
+               "analyzer": {
+                  "gtz_search_analyzer": {
+                    "type": "custom",
+                     "char_filter": [
+                        "gtz_char_filter"
+                     ],
+                     "tokenizer": "whitespace",
+                       "filter": [
+                        "lowercase"
+                     ]
+                  },
+                  "gtz_sort_analyzer": {
+                     "type": "custom",
+					  "char_filter": [
+                        "gtz_whitespace_filter"
+                     ],
+                     "tokenizer": "keyword",
+                     "filter": [
+                        "lowercase"
+                     ]
+                  },
+                  "gtz_index_analyzer": {
+                    "type": "custom",
+                     "char_filter": [
+                        "gtz_char_filter"
+                     ],
+                     "tokenizer": "whitespace",
+                     "filter": [
+                        "lowercase",
+                        "gtz_filter_ngram"
+                     ]
+                  }
+               },
+               "char_filter": {
+                  "gtz_char_filter": {
+                     "type": "pattern_replace",
+                     "pattern": "[!@#\\-$%^&*]",
+                     "replacement": " "
+                  },
+				   "gtz_whitespace_filter": {
+                     "type": "pattern_replace",
+                     "pattern": "^[ ]+|[ ]+$|[ ]+(?=[ ])",
+                     "replacement": ""
+                  }
+               }
+            }
+         }
+  }
+}
